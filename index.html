@@ -1,0 +1,76 @@
+<html>
+
+<head>
+    <title>Secure Voting</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <script src="sha512.js"></script>
+    <script src="jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="rsa.js"></script>
+</head>
+
+<body>
+    <!-- <form> -->
+    <label placeholder="10-digit SSN">Enter SSN: </label>
+    <input type="text" id="ssn" maxlength="9" placeholder="XXX XX XXXX (9-digits)" /> <br />
+    <button id="submit" type="button" onclick="generateNums()">Submit</button>
+    <!-- </form> -->
+    <p><span id="ballotNumber"></span></p>
+    <p><span id="voterPIN"></span></p>
+    <span id="hashSpan"></span>
+    <div id="encryption">
+        <p>The data is going to be fed to the RSA encryption algorithm in this format: <span
+                class="ssn">SSN</span>|<span class="ballot">Ballot Number</span>|<span class='pin'>Voter Pin Hash</span>
+        </p>
+        <p>Data to be fed: <span id="template"></span></p>
+        <p>Data is too long. It is 144 characters long, the max is 117 characters. Using the following format instead:
+            <span class="ssn">SSN</span>|<span class="ballot">Ballot Number</span>|<span class='pin'>Voter Pin</span>
+        </p>
+        <p>Data to be fed: <span id="templateB"></span></p>
+        <p>Private Key: <span class="hash"
+                id="privateKey">MIICXAIBAAKBgQDik0qiXZgXSDdn3qVHY6NOkwtltx0gxPs7MS6HwveqbVrQuox+4Uxr2D45hKVZsrX3wh6L8oVtlexz7bgQbEwoBmzD2pE27CHJipj432mtLOaFZv+C6BNEd9byGG7puLko3GwjAxMmEEM6xBT9Vdt6mJqVc/iJGbC2V6oL/L74tQIDAQABAoGAWuBU+RatH/l5L5IfnKicIbHcymlNp40abz1kulM63wKJgFqya1mWO1M6cfuADqAdWEhl1B/r4G5Xro/UWdH2IP5NAkLxTCkx4WFjYNAGR22PAEMcu7l3JUXdbcGUEqZ0d39dh9QUrzCIq03KQT+i+woVHokDpO7A0AlqMeQBuykCQQD6GX7DT/31V0cZgX0OLLmO77CH4ZnFwTl3iUZjkBVSe25NK0QwPI9RhampTyDsLQPg50nJsZ0KSxvgXfr/133XAkEA5+u4FveGvC5jKsm+q/xFNlE7HFib/8II2Ugzemsguoz8QrvN4afyLsKX/s6Ewz1FLK8aDaIAghsIobLW3Qq0UwJAEx9t7Nsp7N9uhUm8WSAcVAyJr+oVCuTaUwSBCE3VA4iCh43+Wb3Xq4EP1u1A9C4A9OpaXvygqE/T4tTswzEj4wJBAMCbx3trfv5yF/HFMxFqpaCCvfDAtm4mG2s4x2f36GqGBEr35fhunnevLMR1h1UOYZDGq4B+9qUXBogkGsXgyfkCQDsq3Nx9U+fAe4MKKPvAGsLHKzAgdGqek22/QzsTPOV36RgbtbQ+u04DoY+VfYZUuifV6H55wT2mOBV2ZMp5hiA=</span>
+        </p>
+        <p>Public Key: <span class="hash"
+                id="publicKey">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDik0qiXZgXSDdn3qVHY6NOkwtltx0gxPs7MS6HwveqbVrQuox+4Uxr2D45hKVZsrX3wh6L8oVtlexz7bgQbEwoBmzD2pE27CHJipj432mtLOaFZv+C6BNEd9byGG7puLko3GwjAxMmEEM6xBT9Vdt6mJqVc/iJGbC2V6oL/L74tQIDAQAB</span>
+        </p>
+        <button type="button" id="encryptBtn">Click to encrypt above data</button>
+        <p id="encryptedVal"></p>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#encryption").hide();
+        });
+        function generateNums() {
+            if (document.getElementById("ssn").value.length != 9) {
+                alert('Please enter 9 digit SSN.');
+            } else {
+                document.getElementById("ballotNumber").innerHTML = "Your Ballot Number is: " + 12345;
+                var voterPIN = Math.floor((document.getElementById("ssn").value - 18574632) / 1000);
+                document.getElementById("voterPIN").innerHTML = "Your Voter PIN is: " + voterPIN;
+                var message = "The sha512 hash for voterPin " + voterPIN + " is: ";
+                var hashValue = SHA512(voterPIN.toString());
+                document.getElementById("hashSpan").innerHTML = message + "<span class=\"hash\">" + hashValue + "</span>";
+                template = "<span class=\"ssn\">" + document.getElementById("ssn").value + "</span>|<span class=\"ballot\">" + "12345</span>|<span class=\"pin\">" + hashValue + "</span>";
+                var templateB = "<span class=\"ssn\">" + document.getElementById("ssn").value + "</span>|<span class=\"ballot\">" + "12345</span>|<span class=\"pin\">" + voterPIN + "</span>";
+                document.getElementById("template").innerHTML = template;
+                document.getElementById("templateB").innerHTML = templateB;
+                $('#encryptBtn').click(function () {
+                    // Create the encryption object.
+                    var crypt = new JSEncrypt();
+                    var privKey = "MIICXAIBAAKBgQDik0qiXZgXSDdn3qVHY6NOkwtltx0gxPs7MS6HwveqbVrQuox+4Uxr2D45hKVZsrX3wh6L8oVtlexz7bgQbEwoBmzD2pE27CHJipj432mtLOaFZv+C6BNEd9byGG7puLko3GwjAxMmEEM6xBT9Vdt6mJqVc/iJGbC2V6oL/L74tQIDAQABAoGAWuBU+RatH/l5L5IfnKicIbHcymlNp40abz1kulM63wKJgFqya1mWO1M6cfuADqAdWEhl1B/r4G5Xro/UWdH2IP5NAkLxTCkx4WFjYNAGR22PAEMcu7l3JUXdbcGUEqZ0d39dh9QUrzCIq03KQT+i+woVHokDpO7A0AlqMeQBuykCQQD6GX7DT/31V0cZgX0OLLmO77CH4ZnFwTl3iUZjkBVSe25NK0QwPI9RhampTyDsLQPg50nJsZ0KSxvgXfr/133XAkEA5+u4FveGvC5jKsm+q/xFNlE7HFib/8II2Ugzemsguoz8QrvN4afyLsKX/s6Ewz1FLK8aDaIAghsIobLW3Qq0UwJAEx9t7Nsp7N9uhUm8WSAcVAyJr+oVCuTaUwSBCE3VA4iCh43+Wb3Xq4EP1u1A9C4A9OpaXvygqE/T4tTswzEj4wJBAMCbx3trfv5yF/HFMxFqpaCCvfDAtm4mG2s4x2f36GqGBEr35fhunnevLMR1h1UOYZDGq4B+9qUXBogkGsXgyfkCQDsq3Nx9U+fAe4MKKPvAGsLHKzAgdGqek22/QzsTPOV36RgbtbQ+u04DoY+VfYZUuifV6H55wT2mOBV2ZMp5hiA=";
+                    // Set the private.
+                    crypt.setPrivateKey(privKey);
+                    var pubkey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDik0qiXZgXSDdn3qVHY6NOkwtltx0gxPs7MS6HwveqbVrQuox+4Uxr2D45hKVZsrX3wh6L8oVtlexz7bgQbEwoBmzD2pE27CHJipj432mtLOaFZv+C6BNEd9byGG7puLko3GwjAxMmEEM6xBT9Vdt6mJqVc/iJGbC2V6oL/L74tQIDAQAB";
+
+                    var input = document.getElementById("ssn").value + "|" + "12345|" + voterPIN;
+                    var encryptedValue = crypt.encrypt(input);
+                    console.log(encryptedValue);
+                    document.getElementById("encryptedVal").innerHTML = "<span class=\"hash\">" + encryptedValue + "</span>";
+                });
+                $("#encryption").show();
+            }
+        }
+    </script>
+</body>
+
+</html>

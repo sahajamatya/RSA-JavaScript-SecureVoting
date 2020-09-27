@@ -1,0 +1,57 @@
+body {
+    font-family: 'Roboto',
+        sans-serif;
+    margin-top: 40px;
+}
+
+#ssn {
+    outline: 0;
+    border-width: 0 0 2px;
+    padding: 5px;
+    margin-left: 20px;
+    font-family: 'Roboto',
+        sans-serif;
+    font-size: 1rem;
+}
+
+.ssn {
+    color: blue;
+}
+
+.ballot {
+    color: red;
+}
+
+.pin {
+    color: orange;
+    font-family: Consolas,
+        monaco,
+        monospace;
+}
+
+.hash {
+    font-family: Consolas,
+        monaco,
+        monospace;
+}
+
+#submit,
+#encryptBtn {
+    margin-top: 20px;
+    border: 1px solid black;
+    border-radius: 4px;
+    background-color: white;
+    padding: 10px;
+}
+
+#encryptBtn:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+#submit:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
