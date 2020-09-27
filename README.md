@@ -1,4 +1,4 @@
-# RSA-JavaScript
+# RSA-JavaScript-SecureVoting
 
 
 Generates a sha512 hash for voter ID in the browser to be posted to the DB. 
