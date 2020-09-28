@@ -27,14 +27,15 @@
             <span class="ssn">SSN</span>|<span class="ballot">Ballot Number</span>|<span class='pin'>Voter Pin</span>
         </p>
         <p>Data to be fed: <span id="templateB"></span></p>
-        <p>Private Key: <span class="hash"
-                id="privateKey">MIICXAIBAAKBgQDik0qiXZgXSDdn3qVHY6NOkwtltx0gxPs7MS6HwveqbVrQuox+4Uxr2D45hKVZsrX3wh6L8oVtlexz7bgQbEwoBmzD2pE27CHJipj432mtLOaFZv+C6BNEd9byGG7puLko3GwjAxMmEEM6xBT9Vdt6mJqVc/iJGbC2V6oL/L74tQIDAQABAoGAWuBU+RatH/l5L5IfnKicIbHcymlNp40abz1kulM63wKJgFqya1mWO1M6cfuADqAdWEhl1B/r4G5Xro/UWdH2IP5NAkLxTCkx4WFjYNAGR22PAEMcu7l3JUXdbcGUEqZ0d39dh9QUrzCIq03KQT+i+woVHokDpO7A0AlqMeQBuykCQQD6GX7DT/31V0cZgX0OLLmO77CH4ZnFwTl3iUZjkBVSe25NK0QwPI9RhampTyDsLQPg50nJsZ0KSxvgXfr/133XAkEA5+u4FveGvC5jKsm+q/xFNlE7HFib/8II2Ugzemsguoz8QrvN4afyLsKX/s6Ewz1FLK8aDaIAghsIobLW3Qq0UwJAEx9t7Nsp7N9uhUm8WSAcVAyJr+oVCuTaUwSBCE3VA4iCh43+Wb3Xq4EP1u1A9C4A9OpaXvygqE/T4tTswzEj4wJBAMCbx3trfv5yF/HFMxFqpaCCvfDAtm4mG2s4x2f36GqGBEr35fhunnevLMR1h1UOYZDGq4B+9qUXBogkGsXgyfkCQDsq3Nx9U+fAe4MKKPvAGsLHKzAgdGqek22/QzsTPOV36RgbtbQ+u04DoY+VfYZUuifV6H55wT2mOBV2ZMp5hiA=</span>
+        <p>Private Key:<br />
+            <textarea class="hash" disabled id="privateKey" rows=6>MIICXAIBAAKBgQDik0qiXZgXSDdn3qVHY6NOkwtltx0gxPs7MS6HwveqbVrQuox+4Uxr2D45hKVZsrX3wh6L8oVtlexz7bgQbEwoBmzD2pE27CHJipj432mtLOaFZv+C6BNEd9byGG7puLko3GwjAxMmEEM6xBT9Vdt6mJqVc/iJGbC2V6oL/L74tQIDAQABAoGAWuBU+RatH/l5L5IfnKicIbHcymlNp40abz1kulM63wKJgFqya1mWO1M6cfuADqAdWEhl1B/r4G5Xro/UWdH2IP5NAkLxTCkx4WFjYNAGR22PAEMcu7l3JUXdbcGUEqZ0d39dh9QUrzCIq03KQT+i+woVHokDpO7A0AlqMeQBuykCQQD6GX7DT/31V0cZgX0OLLmO77CH4ZnFwTl3iUZjkBVSe25NK0QwPI9RhampTyDsLQPg50nJsZ0KSxvgXfr/133XAkEA5+u4FveGvC5jKsm+q/xFNlE7HFib/8II2Ugzemsguoz8QrvN4afyLsKX/s6Ewz1FLK8aDaIAghsIobLW3Qq0UwJAEx9t7Nsp7N9uhUm8WSAcVAyJr+oVCuTaUwSBCE3VA4iCh43+Wb3Xq4EP1u1A9C4A9OpaXvygqE/T4tTswzEj4wJBAMCbx3trfv5yF/HFMxFqpaCCvfDAtm4mG2s4x2f36GqGBEr35fhunnevLMR1h1UOYZDGq4B+9qUXBogkGsXgyfkCQDsq3Nx9U+fAe4MKKPvAGsLHKzAgdGqek22/QzsTPOV36RgbtbQ+u04DoY+VfYZUuifV6H55wT2mOBV2ZMp5hiA=
+            </textarea>
         </p>
-        <p>Public Key: <span class="hash"
-                id="publicKey">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDik0qiXZgXSDdn3qVHY6NOkwtltx0gxPs7MS6HwveqbVrQuox+4Uxr2D45hKVZsrX3wh6L8oVtlexz7bgQbEwoBmzD2pE27CHJipj432mtLOaFZv+C6BNEd9byGG7puLko3GwjAxMmEEM6xBT9Vdt6mJqVc/iJGbC2V6oL/L74tQIDAQAB</span>
+        <p>Public Key: <br /><textarea class="hash" disabled rows=6
+                id="publicKey">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDik0qiXZgXSDdn3qVHY6NOkwtltx0gxPs7MS6HwveqbVrQuox+4Uxr2D45hKVZsrX3wh6L8oVtlexz7bgQbEwoBmzD2pE27CHJipj432mtLOaFZv+C6BNEd9byGG7puLko3GwjAxMmEEM6xBT9Vdt6mJqVc/iJGbC2V6oL/L74tQIDAQAB</textarea>
         </p>
         <button type="button" id="encryptBtn">Click to encrypt above data</button>
-        <p id="encryptedVal"></p>
+        <textarea class="hash" disabled rows=6 id="encryptedVal"></textarea>
     </div>
     <script>
         $(document).ready(function () {
@@ -65,7 +66,7 @@
                     var input = document.getElementById("ssn").value + "|" + "12345|" + voterPIN;
                     var encryptedValue = crypt.encrypt(input);
                     console.log(encryptedValue);
-                    document.getElementById("encryptedVal").innerHTML = "<span class=\"hash\">" + encryptedValue + "</span>";
+                    document.getElementById("encryptedVal").innerHTML = encryptedValue;
                 });
                 $("#encryption").show();
             }
