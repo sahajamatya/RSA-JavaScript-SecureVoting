@@ -1,0 +1,27 @@
+body {
+    font-size: 3em;
+    font-family: 'Roboto',
+        sans-serif;
+}
+
+.inputBox {
+    outline: 0;
+    border-width: 0 0 2px;
+    padding: 5px;
+    font-size: 1em;
+}
+
+.login {
+    margin-top: 20px;
+    border: 1px solid black;
+    border-radius: 4px;
+    background-color: white;
+    padding: 25px;
+    font-size: 1em;
+}
+
+.login:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
