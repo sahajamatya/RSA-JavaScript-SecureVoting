@@ -1,0 +1,9 @@
+voting-sha512:
+    users:
+        123456790:
+	    ballotNum: 122334
+            voterPIN: 223311
+	123456789:
+	    ballotNum: 112233
+ 	    voterPIN: 445566
+
